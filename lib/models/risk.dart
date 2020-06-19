@@ -4,6 +4,7 @@ class Risk {
   Monitor generator;
   DateTime time;
   String describe;
-  String action;
-  Risk({ this.generator, this.time, this.describe, this.action });
+  String action = '捕获';
+  bool pretendDelete = false;
+  Risk({ this.generator, this.time, this.describe, this.action = '捕获' });
 }

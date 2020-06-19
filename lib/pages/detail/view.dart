@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:observer/pages/detail/action.dart';
 import 'package:observer/utils/innerColor.dart';
+import 'package:observer/utils/simpleTime.dart';
 
 //import 'action.dart';
 import 'state.dart';
@@ -62,20 +64,31 @@ Widget buildView(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                state.monitor.name,
+                                // state.monitor.place.toString() + '的 ' +
+                                state.monitor.name.toString(),
+                                maxLines: 1,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     color: InnerColor.title),
                               ),
                               Text(
-                                state.monitor.prefix +
+                                state.monitor.value == null
+                                    ? '数据暂时无法获取'
+                                    : state.monitor
+                                    .prefix
+                                    .toString() +
                                     ' ' +
-                                    state.monitor.value.toString() +
+                                    state.monitor
+                                        .value
+                                        .toString() +
                                     ' ' +
-                                    state.monitor.suffix,
+                                    state.monitor
+                                        .suffix
+                                        .toString(),
+                                maxLines: 1,
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   color: InnerColor.content,
                                 ),
                               )
@@ -93,7 +106,7 @@ Widget buildView(
                           children: <Widget>[
                             Text(
 //                                      activeMonitors[index].time.toString(),
-                              '31 分钟前',
+                              SimpleTime.trans(state.monitor.time),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: InnerColor.tip,
@@ -108,13 +121,71 @@ Widget buildView(
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(top: side, bottom: side),
+              padding: EdgeInsets.only(top: side * 2, bottom: side, left: side * 2, right: side * 2),
+              child: Text(
+                state.monitor.describe == null ? '暂时无法获取详情' : state.monitor.describe.toString(),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: InnerColor.tip,
+                ),
+              )
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: side, left: side * 2, right: side * 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      '24 小时内最低值',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: InnerColor.title,
+                      ),
+                    ),
+                    Text(
+                      state.monitor.lowest24 == null ? '数据暂时无法获取' : state.monitor.lowest24.toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: InnerColor.content,
+                      ),
+                    ),
+                  ],
+                )
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: side, left: side * 2, right: side * 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      '24 小时内最高值',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: InnerColor.title,
+                      ),
+                    ),
+                    Text(
+                      state.monitor.highest24 == null ? '数据暂时无法获取' : state.monitor.highest24.toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: InnerColor.content,
+                      ),
+                    ),
+                  ],
+                )
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: side * 3, bottom: side),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        // TODO
+                        dispatch(DetailActionCreator.onDeleteMonitor());
                       },
                       child: Text(
                         '删除该设备',

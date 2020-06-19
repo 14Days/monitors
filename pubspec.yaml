@@ -28,7 +28,12 @@ dependencies:
 
   flutter_svg: ^0.17.4
 
+  flutter_localizations:
+    sdk: flutter
+
   dio: ^3.0.9
+
+  webview_flutter: ^0.3.22+1
 
 dev_dependencies:
   flutter_test:

@@ -4,8 +4,10 @@ import 'package:observer/pages/addDevice/page.dart';
 import 'package:observer/pages/detail/page.dart';
 import 'package:observer/pages/home/page.dart';
 import 'package:observer/pages/info/page.dart';
+import 'package:observer/pages/questionPage/page.dart';
 import './global/state.dart';
 import './global/store.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Widget createApp() {
   final AbstractRoutes routes = PageRoutes(
@@ -14,6 +16,7 @@ Widget createApp() {
         'addDevice': AddDevicePage(),
         'info': InfoPage(),
         'detail': DetailPage(),
+        'question': QuestionPage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         /// 只有特定的范围的 Page 才需要建立和 AppStore 的连接关系
@@ -41,6 +44,15 @@ Widget createApp() {
   return MaterialApp(
     title: '健康守护',
     home: routes.buildPage('home', null),
+    localizationsDelegates: [
+      //此处
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    supportedLocales: [
+      //此处
+      const Locale('zh', 'CH'),
+    ],
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute<Object>(builder: (BuildContext context) {
         return routes.buildPage(settings.name, settings.arguments);

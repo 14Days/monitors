@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:observer/components/dialog/component.dart';
 import 'package:observer/models/monitor.dart';
 
 import 'effect.dart';
@@ -16,6 +17,7 @@ class DetailPage extends Page<DetailState, Monitor> {
             dependencies: Dependencies<DetailState>(
                 adapter: null,
                 slots: <String, Dependent<DetailState>>{
+                  'loading': TipDialogConnector<DetailState>() + TipDialogComponent(),
                 }),
             middleware: <Middleware<DetailState>>[
             ],);

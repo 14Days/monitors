@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:observer/components/dialog/component.dart';
 
 import 'effect.dart';
 import 'reducer.dart';
@@ -15,6 +16,7 @@ class AddDevicePage extends Page<AddDeviceState, Map<String, dynamic>> {
             dependencies: Dependencies<AddDeviceState>(
                 adapter: null,
                 slots: <String, Dependent<AddDeviceState>>{
+                  'loading': TipDialogConnector<AddDeviceState>() + TipDialogComponent(),
                 }),
             middleware: <Middleware<AddDeviceState>>[
             ],);

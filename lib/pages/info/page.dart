@@ -1,4 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:observer/pages/info/ulter_add/component.dart';
+import 'package:observer/pages/info/ulter_add/state.dart';
 
 import 'effect.dart';
 import 'reducer.dart';
@@ -15,6 +17,7 @@ class InfoPage extends Page<InfoState, Map<String, dynamic>> {
             dependencies: Dependencies<InfoState>(
                 adapter: null,
                 slots: <String, Dependent<InfoState>>{
+                  'alter': FilterAddConnector() + FilterAddComponent(),
                 }),
             middleware: <Middleware<InfoState>>[
             ],);
